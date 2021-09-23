@@ -14,5 +14,8 @@ namespace TintinsChatroom.DTO.Models
         public virtual ChatUserModel Owner { get; set; }
         public virtual List<ChatMessageModel> ChatMessages { get; set; }
 
+        public TimeSpan Elapsed { get; }
+
+
     }
 }

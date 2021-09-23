@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -16,6 +17,8 @@ namespace TintinsChatroom.UI.Pages.User
         private readonly SignInManager<ChatUserModel> signInManager;
         private readonly AuthDbContext context;
 
+        public ChatUserModel ChatUser { get; set; } = new ChatUserModel();
+
         public SpecificRoomModel(SignInManager<ChatUserModel> signInManager, AuthDbContext context)
         {
             this.signInManager = signInManager;
@@ -26,9 +29,12 @@ namespace TintinsChatroom.UI.Pages.User
         [BindProperty]
         public string NewMessage { get; set; }
 
-        public void OnGet(int id)
+
+
+        public async Task OnGet(int id)
         {
             ChatRoom = context.ChatRoomModels.Include(c => c.ChatMessages).ThenInclude(m => m.User).FirstOrDefault(c => c.Id == id);
+            ChatUser = await signInManager.UserManager.GetUserAsync(HttpContext.User);
         }
         public async Task<IActionResult> OnPost()
         {
@@ -40,9 +46,12 @@ namespace TintinsChatroom.UI.Pages.User
                     ChatRoomId = ChatRoom.Id,
                     Date = DateTime.Now,
                     User = await signInManager.UserManager.GetUserAsync(HttpContext.User)
+                    
                 };
                 await context.ChatMessageModels.AddAsync(chatMessage);
                 await context.SaveChangesAsync();
+
+
             }
           
 

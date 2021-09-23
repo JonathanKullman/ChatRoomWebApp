@@ -17,13 +17,15 @@ namespace TintinsChatroom.UI.Pages.User
 
         [BindProperty]
         public ChatRoomModel ChatRoom { get; set; } = new ChatRoomModel();
+        public ChatUserModel ChatUser { get; set; } = new ChatUserModel();
         public CreateRoomModel(SignInManager<ChatUserModel> signInManager, AuthDbContext context)
         {
             _signInManager = signInManager;
             _context = context;
         }
-        public void OnGet()
+        public async Task OnGet()
         {
+            ChatUser = await _signInManager.UserManager.GetUserAsync(HttpContext.User);
         }
         public async Task<IActionResult> OnPost()
         {

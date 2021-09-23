@@ -32,7 +32,13 @@ namespace TintinsChatroom.UI
             services.AddDbContext<AuthDbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("AuthDbConnection")));
 
-            services.AddIdentity<ChatUserModel, IdentityRole>()
+            services.AddIdentity<ChatUserModel, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 5;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
                .AddEntityFrameworkStores<AuthDbContext>();
 
             services.ConfigureApplicationCookie(config =>

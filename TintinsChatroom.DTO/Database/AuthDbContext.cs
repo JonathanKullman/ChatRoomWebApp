@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,5 +30,11 @@ namespace TintinsChatroom.DTO.Database
         }
         public virtual DbSet<ChatMessageModel> ChatMessageModels { get; set; }
         public virtual DbSet<ChatRoomModel> ChatRoomModels { get; set; }
+
+
+
+
     }
+
+
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,7 @@ namespace TintinsChatroom.DTO.Models
         public int ChatRoomId { get; set; }
         public virtual ChatRoomModel ChatRoom { get; set; } // Don't forget .Include(x => x.ChatRoom)
         public virtual ChatUserModel User { get; set; } // Don't forget .Include(x => x.ChatUser)
+
+        
     }
 }
